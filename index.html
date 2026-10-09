@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PDF Studio — All-in-one PDF Tools</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#07070f;--fg:#f2f2fa;--mut:#9a9ab5;--card:rgba(255,255,255,.045);--bd:rgba(255,255,255,.1);--a:#7c5cff;--b:#00d4ff;--c:#ff4ecd;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f4f4fb;--fg:#14142a;--mut:#5f5f80;--card:rgba(255,255,255,.7);--bd:rgba(20,20,60,.1)}}
+:root[data-theme="light"]{--bg:#f4f4fb;--fg:#14142a;--mut:#5f5f80;--card:rgba(255,255,255,.7);--bd:rgba(20,20,60,.1)}
+:root[data-theme="dark"]{--bg:#07070f;--fg:#f2f2fa}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:Outfit,system-ui,sans-serif;overflow-x:hidden;min-height:100vh}
+.aur{position:fixed;inset:0;z-index:-1;overflow:hidden}
+.aur i{position:absolute;width:55vmax;height:55vmax;border-radius:50%;filter:blur(90px);opacity:.35;animation:fl 18s ease-in-out infinite alternate}
+.aur i:nth-child(1){background:var(--a);top:-20%;left:-10%}
+.aur i:nth-child(2){background:var(--b);bottom:-25%;right:-15%;animation-delay:-6s}
+.aur i:nth-child(3){background:var(--c);top:30%;left:40%;width:35vmax;height:35vmax;opacity:.2;animation-delay:-12s}
+@keyframes fl{to{transform:translate(8vw,6vh) scale(1.2) rotate(40deg)}}
+.aur:after{content:"";position:absolute;inset:0;background-image:radial-gradient(var(--bd) 1px,transparent 1px);background-size:34px 34px;mask-image:radial-gradient(circle at 50% 30%,#000,transparent 70%)}
+nav{display:flex;justify-content:space-between;align-items:center;padding:18px 5vw;position:sticky;top:0;z-index:5;backdrop-filter:blur(18px);border-bottom:1px solid var(--bd)}
+.logo{font-weight:800;font-size:1.3rem;display:flex;gap:10px;align-items:center}
+.logo b{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--a),var(--c));display:grid;place-items:center;color:#fff;animation:pulse 3s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 10px #7c5cff00,0 0 30px #7c5cff88}0%,100%{box-shadow:0 0 0 0 #7c5cff55}}
+.btn{border:1px solid var(--bd);background:var(--card);color:var(--fg);padding:9px 16px;border-radius:12px;font:inherit;cursor:pointer;transition:.3s;text-decoration:none;font-size:.9rem}
+.btn:hover{transform:translateY(-2px);border-color:var(--a)}
+.hero{text-align:center;padding:9vh 5vw 4vh}
+.pill{display:inline-block;padding:6px 16px;border:1px solid var(--bd);border-radius:99px;font-size:.8rem;color:var(--mut);background:var(--card);animation:up .8s both}
+h1{font-size:clamp(2.4rem,7vw,5.2rem);font-weight:800;line-height:1.05;margin:20px 0;letter-spacing:-.03em;animation:up .8s .1s both}
+h1 span{background:linear-gradient(90deg,var(--a),var(--b),var(--c),var(--a));background-size:300%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:gr 6s linear infinite}
+@keyframes gr{to{background-position:300%}}
+.hero p{color:var(--mut);max-width:560px;margin:0 auto 28px;font-size:1.1rem;font-weight:300;animation:up .8s .2s both}
+@keyframes up{from{opacity:0;transform:translateY(28px)}}
+.sr{max-width:520px;margin:auto;position:relative;animation:up .8s .3s both}
+.sr input{width:100%;padding:16px 22px;border-radius:18px;border:1px solid var(--bd);background:var(--card);color:var(--fg);font:inherit;backdrop-filter:blur(14px);outline:0;transition:.3s}
+.sr input:focus{border-color:var(--a);box-shadow:0 0 0 4px #7c5cff33,0 10px 40px #7c5cff33}
+.stats{display:flex;gap:30px;justify-content:center;margin-top:30px;color:var(--mut);font-size:.9rem;flex-wrap:wrap;animation:up .8s .4s both}
+.stats b{color:var(--fg);font-size:1.4rem;display:block}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(235px,1fr));gap:18px;padding:30px 5vw 60px;max-width:1300px;margin:auto}
+.card{position:relative;padding:24px;border-radius:22px;background:var(--card);border:1px solid var(--bd);cursor:pointer;overflow:hidden;backdrop-filter:blur(14px);transition:transform .35s cubic-bezier(.2,.8,.2,1),border-color .3s;animation:up .7s both;animation-delay:calc(var(--i)*12ms + .15s)}
+.card:before{content:"";position:absolute;inset:0;background:radial-gradient(260px circle at var(--x,50%) var(--y,0),#7c5cff44,transparent 60%);opacity:0;transition:.3s}
+.card:hover{transform:translateY(-8px) scale(1.02);border-color:#7c5cff88}
+.card:hover:before{opacity:1}
+.ic{width:54px;height:54px;border-radius:16px;display:grid;place-items:center;font-size:1.7rem;background:linear-gradient(135deg,#7c5cff33,#00d4ff22);margin-bottom:16px;transition:.4s;position:relative}
+.card:hover .ic{transform:rotate(-8deg) scale(1.12)}
+.card h3{margin:0 0 6px;font-size:1.1rem;position:relative}
+.card p{margin:0;color:var(--mut);font-size:.85rem;font-weight:300;line-height:1.45;position:relative}
+.tag{position:absolute;top:14px;right:14px;font-size:.65rem;padding:3px 9px;border-radius:99px;background:#ffb02033;color:#ffb020;border:1px solid #ffb02055}
+.tag.n{background:#00e0a033;color:#00e0a0;border-color:#00e0a055}
+.mq{overflow:hidden;border-block:1px solid var(--bd);padding:14px 0;color:var(--mut);white-space:nowrap}
+.mq div{display:inline-block;animation:mq 30s linear infinite;padding-left:100%}
+@keyframes mq{to{transform:translateX(-100%)}}
+footer{text-align:center;padding:50px 5vw 70px;color:var(--mut);border-top:1px solid var(--bd)}
+footer a{color:var(--b);text-decoration:none}
+.dev{display:inline-flex;gap:14px;align-items:center;padding:16px 26px;border-radius:20px;background:var(--card);border:1px solid var(--bd);margin-bottom:18px;text-align:left}
+.av{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--a),var(--c));display:grid;place-items:center;font-weight:800;color:#fff}
+.ov{position:fixed;inset:0;background:#000a;backdrop-filter:blur(10px);z-index:20;display:none;place-items:center;padding:16px}
+.ov.on{display:grid;animation:fi .3s}
+@keyframes fi{from{opacity:0}}
+.md{width:min(640px,100%);max-height:92vh;overflow:auto;background:var(--bg);border:1px solid var(--bd);border-radius:26px;padding:28px;animation:pop .5s cubic-bezier(.2,1.2,.3,1);box-shadow:0 30px 100px #7c5cff44}
+@keyframes pop{from{opacity:0;transform:translateY(40px) scale(.92)}}
+.md h2{margin:0 0 4px;display:flex;justify-content:space-between;align-items:center}
+.md .x{cursor:pointer;font-size:1.2rem;background:none;border:0;color:var(--fg)}
+.dz{margin:18px 0;border:2px dashed var(--bd);border-radius:20px;padding:30px;text-align:center;cursor:pointer;transition:.3s;color:var(--mut)}
+.dz:hover,.dz.dr{border-color:var(--a);background:#7c5cff14;transform:scale(1.015)}
+.fl div{display:flex;justify-content:space-between;padding:9px 14px;border-radius:12px;background:var(--card);margin-bottom:6px;font-size:.85rem;animation:up .4s both}
+.op{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+.op label{font-size:.78rem;color:var(--mut);display:flex;flex-direction:column;gap:5px}
+.op label.w{grid-column:1/-1}
+.op input,.op select,.op textarea{padding:11px 13px;border-radius:12px;border:1px solid var(--bd);background:var(--card);color:var(--fg);font:inherit;outline:0}
+.op textarea{min-height:110px}
+.op input:focus,.op select:focus,.op textarea:focus{border-color:var(--a)}
+canvas.sg{width:100%;height:130px;border-radius:12px;background:#fff;touch-action:none;cursor:crosshair}
+.go{width:100%;padding:15px;border:0;border-radius:16px;font:inherit;font-weight:600;color:#fff;cursor:pointer;background:linear-gradient(90deg,var(--a),var(--c),var(--b));background-size:200%;transition:.4s;margin-top:6px}
+.go:hover{background-position:100%;transform:translateY(-2px);box-shadow:0 12px 30px #7c5cff55}
+.go:disabled{opacity:.5;cursor:wait}
+.res{margin-top:16px}
+.res div{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 14px;border-radius:14px;border:1px solid #00e0a055;background:#00e0a014;margin-bottom:6px;font-size:.85rem;animation:up .4s both}
+.res button{border:0;border-radius:10px;padding:7px 14px;background:#00e0a0;color:#00281c;font:inherit;font-weight:600;cursor:pointer}
+.msg{color:var(--mut);font-size:.85rem;margin:8px 0}
+.err{color:#ff6b81}
+.bar{height:4px;border-radius:9px;background:linear-gradient(90deg,var(--a),var(--b),var(--c));background-size:200%;animation:gr 1s linear infinite;margin:10px 0;display:none}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head><body>
+<div class="aur"><i></i><i></i><i></i></div>
+<nav><div class="logo"><b>P</b>PDF Studio</div><div style="display:flex;gap:10px"><button class="btn" id="th">◐ Theme</button></div></nav>
+<header class="hero">
+<span class="pill">✦ 100% private — files never leave your browser</span>
+<h1>Every PDF tool,<br><span>beautifully fast.</span></h1>
+<p>Merge, split, compress, edit, sign, convert and more — free, no signup, no uploads.</p>
+<div class="sr"><input id="q" placeholder="Search tools… (merge, sign, jpg)" autocomplete="off"></div>
+<div class="stats"><div><b id="cnt">0</b>Tools</div><div><b>∞</b>Free</div></div>
+</header>
+<div class="mq"><div>Merge ✦ Split ✦ Compress ✦ Edit ✦ Sign ✦ Watermark ✦ Rotate ✦ Crop ✦ Organize ✦ Convert ✦ Protect ✦ Unlock ✦ Merge ✦ Split ✦ Compress ✦ Edit ✦ Sign ✦ Watermark ✦ Rotate ✦ Crop ✦ Organize ✦ Convert</div></div>
+<main class="grid" id="g"></main>
+<footer>
+<div class="dev"><div class="av">AG</div><div><b>Aryan Gour</b><br><a href="mailto:agournawa7@gmail.com">agournawa7@gmail.com</a></div></div>
+<div>Designed &amp; developed by Aryan Gour · © 2026 PDF Studio</div>
+</footer>
+<div class="ov" id="ov"><div class="md" id="md"></div></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+const $=s=>document.querySelector(s),o=id=>$('#o_'+id).value;
+pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+const inp=(id,l,v='',t='text',w='')=>`<label class="${w}">${l}<input id="o_${id}" type="${t}" value="${v}"></label>`;
+const sel=(id,l,a)=>`<label>${l}<select id="o_${id}">${a.map(x=>`<option>${x}</option>`).join('')}</select></label>`;
+const PDF='.pdf,application/pdf',IMG='image/*',SRV='This conversion needs a server-side engine (LibreOffice) to keep layout accurate, so it is not available in this browser-only build.';
+const blobOf=(c,q)=>new Promise(r=>c.toBlob(r,'image/jpeg',q));
+const pdfB=async d=>new Blob([await d.save()],{type:'application/pdf'});
+const base=f=>f.name.replace(/\.[^.]+$/,'');
+const load=async f=>PDFLib.PDFDocument.load(await f.arrayBuffer(),{ignoreEncryption:true});
+const jsDoc=async f=>pdfjsLib.getDocument({data:new Uint8Array(await f.arrayBuffer())}).promise;
+const rng=(s,n)=>{if(!s.trim())return[...Array(n).keys()];const r=[];s.split(',').forEach(p=>{const[a,b]=p.split('-').map(x=>parseInt(x));if(!isNaN(a))for(let k=a;k<=(isNaN(b)?a:b);k++)if(k>=1&&k<=n)r.push(k-1)});return r};
+const hex=h=>{const n=parseInt(h.slice(1),16);return PDFLib.rgb((n>>16)/255,((n>>8)&255)/255,(n&255)/255)};
+const esc=s=>s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+async function render(pg,sc){const v=pg.getViewport({scale:sc}),c=document.createElement('canvas');c.width=v.width;c.height=v.height;await pg.render({canvasContext:c.getContext('2d'),viewport:v}).promise;return c}
+async function lines(f){const d=await jsDoc(f),out=[],T=await Promise.all([...Array(d.numPages).keys()].map(async k=>(await d.getPage(k+1)).getTextContent()));for(const tc of T){const m={};tc.items.forEach(t=>{const y=Math.round(t.transform[5]/3);(m[y]=m[y]||[]).push(t)});Object.keys(m).sort((a,b)=>b-a).forEach(y=>out.push(m[y].sort((a,b)=>a.transform[4]-b.transform[4]).map(x=>x.str)));out.push(null)}return out}
+const pdfOf=fs=>fs.find(f=>/pdf$/i.test(f.type)||/\.pdf$/i.test(f.name));
+async function place(d,f,pg,x,y){const p=d.getPage(Math.min(+pg,d.getPageCount())-1),{width:W,height:H}=p.getSize();return{p,W,H,X:x/100*W,Y:H-y/100*H}}
+const posOpt=inp('pg','Page','1','number')+inp('x','X position %','10','number')+inp('y','Y position % (from top)','10','number')+inp('w','Width %','30','number');
+
+const T=[
+{n:'Merge PDF',i:'🧩',d:'Combine many PDFs into one file.',acc:PDF,multi:1,run:async fs=>{const d=await PDFLib.PDFDocument.create();for(const f of fs){const s=await load(f);(await d.copyPages(s,s.getPageIndices())).forEach(p=>d.addPage(p))}return[{name:'merged.pdf',blob:await pdfB(d)}]}},
+{n:'Split PDF',i:'✂️',d:'Split by page ranges into separate files.',acc:PDF,opt:inp('r','Ranges (e.g. 1-3,4-6,9) — blank = every page','','text','w'),run:async fs=>{const s=await load(fs[0]),n=s.getPageCount(),g=o('r').trim()?o('r').split(','):[...Array(n).keys()].map(k=>String(k+1)),out=[];for(const part of g){const ix=rng(part,n);if(!ix.length)continue;const d=await PDFLib.PDFDocument.create();(await d.copyPages(s,ix)).forEach(p=>d.addPage(p));out.push({name:`${base(fs[0])}_${part.trim()}.pdf`,blob:await pdfB(d)})}return out}},
+{n:'Compress PDF',i:'🗜️',d:'Shrink file size by optimising pages.',acc:PDF,opt:sel('lv','Compression',['Low (best quality)','Medium','High (smallest)'])+'<p class="msg" style="grid-column:1/-1">Pages are re-rendered as images, so text becomes non-selectable.</p>',run:async fs=>{const js=await jsDoc(fs[0]),d=await PDFLib.PDFDocument.create(),L=$('#o_lv').selectedIndex,sc=[1.4,1,.8][L],q=[.8,.6,.4][L],ims=await Promise.all([...Array(js.numPages).keys()].map(async k=>{const pg=await js.getPage(k+1);return[pg.getViewport({scale:1}),await(await blobOf(await render(pg,sc),q)).arrayBuffer()]}));for(const[v,ab]of ims){const im=await d.embedJpg(ab);d.addPage([v.width,v.height]).drawImage(im,{x:0,y:0,width:v.width,height:v.height})}const b=await pdfB(d);return[{name:base(fs[0])+'_compressed.pdf',blob:b.size<fs[0].size?b:fs[0]}]}},
+{n:'PDF to Word',i:'📝',d:'Extract text into an editable .docx.',acc:PDF,run:async fs=>{const L=await lines(fs[0]),z=new JSZip();z.file('[Content_Types].xml','<?xml version="1.0"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/></Types>');z.file('_rels/.rels','<?xml version="1.0"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="r1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>');z.file('word/document.xml','<?xml version="1.0"?><w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body>'+L.map(l=>l?`<w:p><w:r><w:t xml:space="preserve">${esc(l.join(' '))}</w:t></w:r></w:p>`:'<w:p><w:r><w:br w:type="page"/></w:r></w:p>').join('')+'</w:body></w:document>');return[{name:base(fs[0])+'.docx',blob:await z.generateAsync({type:'blob'})}]}},
+{n:'Word to PDF',i:'📄',d:'Convert .docx documents to PDF.',srv:1},
+{n:'PDF to PowerPoint',i:'📊',d:'Turn PDF pages into slides.',srv:1},
+{n:'PowerPoint to PDF',i:'🎞️',d:'Convert presentations to PDF.',srv:1},
+{n:'PDF to Excel',i:'📈',d:'Extract table-like text to CSV (opens in Excel).',acc:PDF,run:async fs=>[{name:base(fs[0])+'.csv',blob:new Blob([(await lines(fs[0])).filter(Boolean).map(r=>r.map(c=>'"'+c.replace(/"/g,'""')+'"').join(',')).join('\n')],{type:'text/csv'})}]},
+{n:'Excel to PDF',i:'🧮',d:'Convert spreadsheets to PDF.',srv:1},
+{n:'Edit PDF',i:'🖊️',d:'Add text, images and highlights.',acc:PDF+','+IMG,multi:1,opt:sel('a','Action',['Add text','Highlight','Add image'])+inp('t','Text','Hello')+posOpt+inp('h','Height % (highlight)','4','number')+inp('s','Font size','18','number')+inp('c','Colour','#e11d48','color')+'<p class="msg" style="grid-column:1/-1">Add the PDF first; for “Add image” also drop an image.</p>',run:async fs=>{const d=await load(pdfOf(fs)),f=await d.embedFont(PDFLib.StandardFonts.Helvetica),A=$('#o_a').selectedIndex,{p,W,H,X,Y}=await place(d,0,o('pg'),+o('x'),+o('y'));if(A==0)p.drawText(o('t'),{x:X,y:Y-(+o('s')),size:+o('s'),font:f,color:hex(o('c'))});else if(A==1){const h=o('h')/100*H;p.drawRectangle({x:X,y:Y-h,width:o('w')/100*W,height:h,color:PDFLib.rgb(1,.9,0),opacity:.4})}else{const im=fs.find(x=>/^image/.test(x.type));if(!im)throw'Please also add an image file.';const b=await im.arrayBuffer(),e=/png/.test(im.type)?await d.embedPng(b):await d.embedJpg(b),w=o('w')/100*W,s=e.scale(w/e.width);p.drawImage(e,{x:X,y:Y-s.height,width:w,height:s.height})}return[{name:'edited.pdf',blob:await pdfB(d)}]}},
+{n:'PDF to JPG',i:'🖼️',d:'Export every page as a high-res image.',acc:PDF,opt:sel('q','Quality',['High','Medium']),run:async fs=>{const js=await jsDoc(fs[0]),sc=$('#o_q').selectedIndex?1.3:2;return Promise.all([...Array(js.numPages).keys()].map(async k=>({name:`${base(fs[0])}_p${k+1}.jpg`,blob:await blobOf(await render(await js.getPage(k+1),sc),.9)})))}},
+{n:'JPG to PDF',i:'📸',d:'Turn JPG / PNG images into a PDF.',acc:IMG,multi:1,run:async fs=>{const d=await PDFLib.PDFDocument.create();for(const f of fs){const b=await f.arrayBuffer(),e=/png/.test(f.type)?await d.embedPng(b):await d.embedJpg(b);d.addPage([e.width,e.height]).drawImage(e,{x:0,y:0,width:e.width,height:e.height})}return[{name:'images.pdf',blob:await pdfB(d)}]}},
+{n:'Sign PDF',i:'✍️',d:'Draw your eSignature and place it on a page.',acc:PDF,opt:'<label class="w">Draw signature<canvas class="sg" id="sg"></canvas></label><button type="button" class="btn" onclick="clr()" style="grid-column:1/-1">Clear</button>'+posOpt.replace('value="30"','value="25"'),init:()=>{const c=$('#sg'),x=c.getContext('2d');c.width=600;c.height=260;x.lineWidth=5;x.lineCap='round';x.strokeStyle='#0a1a5c';let dn=0;const P=e=>{const r=c.getBoundingClientRect();return[(e.clientX-r.left)*600/r.width,(e.clientY-r.top)*260/r.height]};c.onpointerdown=e=>{dn=1;x.beginPath();x.moveTo(...P(e))};c.onpointermove=e=>{if(dn){x.lineTo(...P(e));x.stroke()}};c.onpointerup=c.onpointerleave=()=>dn=0;window.clr=()=>x.clearRect(0,0,600,260)},run:async fs=>{const d=await load(fs[0]),im=await d.embedPng(await(await new Promise(r=>$('#sg').toBlob(r))).arrayBuffer()),{p,W,H,X,Y}=await place(d,0,o('pg'),+o('x'),+o('y')),w=o('w')/100*W,h=w*260/600;p.drawImage(im,{x:X,y:Y-h,width:w,height:h});return[{name:base(fs[0])+'_signed.pdf',blob:await pdfB(d)}]}},
+{n:'Watermark',i:'💧',d:'Stamp text across every page.',acc:PDF,opt:inp('t','Watermark text','CONFIDENTIAL')+inp('op','Opacity (0-1)','0.2','number')+inp('s','Size','60','number')+inp('c','Colour','#7c5cff','color'),run:async fs=>{const d=await load(fs[0]),f=await d.embedFont(PDFLib.StandardFonts.HelveticaBold);d.getPages().forEach(p=>{const{width:W,height:H}=p.getSize(),s=+o('s'),tw=f.widthOfTextAtSize(o('t'),s);p.drawText(o('t'),{x:W/2-tw/2*.707,y:H/2-tw/2*.707,size:s,font:f,color:hex(o('c')),opacity:+o('op'),rotate:PDFLib.degrees(45)})});return[{name:base(fs[0])+'_watermarked.pdf',blob:await pdfB(d)}]}},
+{n:'Rotate PDF',i:'🔄',d:'Rotate all or selected pages.',acc:PDF,opt:sel('a','Angle',['90','180','270'])+inp('r','Pages (blank = all)'),run:async fs=>{const d=await load(fs[0]),ix=rng(o('r'),d.getPageCount());ix.forEach(k=>{const p=d.getPage(k);p.setRotation(PDFLib.degrees((p.getRotation().angle+ +o('a'))%360))});return[{name:base(fs[0])+'_rotated.pdf',blob:await pdfB(d)}]}},
+{n:'HTML to PDF',i:'🌐',d:'Paste HTML and render it as a PDF.',noFile:1,opt:'<label class="w">HTML<textarea id="o_h"><h1>Hello PDF</h1><p>Paste your HTML here.</p></textarea></label>',run:async()=>{const el=document.createElement('div');el.style.cssText='position:fixed;left:-9999px;top:0;width:794px;background:#fff;color:#000;padding:36px;font:15px sans-serif';el.innerHTML=o('h');document.body.append(el);const c=await html2canvas(el,{scale:2});el.remove();const d=await PDFLib.PDFDocument.create(),ph=c.width*842/595;for(let y=0;y<c.height;y+=ph){const s=document.createElement('canvas');s.width=c.width;s.height=ph;const x=s.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,s.width,ph);x.drawImage(c,0,y,c.width,ph,0,0,c.width,ph);const e=await d.embedJpg(await(await blobOf(s,.92)).arrayBuffer());d.addPage([595,842]).drawImage(e,{x:0,y:0,width:595,height:842})}return[{name:'html.pdf',blob:await pdfB(d)}]}},
+{n:'PDF to HTML',i:'🧬',d:'Extract content as a clean HTML page.',acc:PDF,run:async fs=>[{name:base(fs[0])+'.html',blob:new Blob(['<!DOCTYPE html><meta charset="utf-8"><body style="font:16px sans-serif;max-width:760px;margin:auto">'+(await lines(fs[0])).map(l=>l?`<p>${esc(l.join(' '))}</p>`:'<hr>').join('')],{type:'text/html'})}]},
+{n:'Unlock PDF',i:'🔓',d:'Remove edit/print restrictions.',acc:PDF,opt:'<p class="msg" style="grid-column:1/-1">Works for owner-password restrictions. Files that need a password to open cannot be unlocked.</p>',run:async fs=>[{name:base(fs[0])+'_unlocked.pdf',blob:await pdfB(await load(fs[0]))}]},
+{n:'Protect PDF',i:'🔒',d:'Encrypt with a password.',srv:1,msg:'Real AES encryption is not supported by the in-browser PDF engine used here, so this needs a server-side build.'},
+{n:'Organize PDF',i:'🗂️',d:'Reorder or delete pages.',acc:PDF,opt:inp('r','New order (e.g. 3,1,2) — omitted pages are deleted','','text','w'),run:async fs=>{const s=await load(fs[0]),d=await PDFLib.PDFDocument.create(),ix=o('r').split(',').map(x=>parseInt(x)-1).filter(k=>k>=0&&k<s.getPageCount());if(!ix.length)throw'Enter the new page order.';(await d.copyPages(s,ix)).forEach(p=>d.addPage(p));return[{name:base(fs[0])+'_organized.pdf',blob:await pdfB(d)}]}},
+{n:'PDF to PDF/A',i:'🏛️',d:'Archive-grade PDF/A conversion.',srv:1,msg:'True PDF/A needs font embedding and colour-profile validation done server-side.'},
+{n:'Crop PDF',i:'📐',d:'Trim margins from every page.',acc:PDF,opt:inp('t','Top (pt)','20','number')+inp('b','Bottom (pt)','20','number')+inp('l','Left (pt)','20','number')+inp('r','Right (pt)','20','number'),run:async fs=>{const d=await load(fs[0]);d.getPages().forEach(p=>{const{width:W,height:H}=p.getSize(),x=+o('l'),y=+o('b'),w=W-x-o('r'),h=H-y-o('t');p.setCropBox(x,y,w,h);p.setMediaBox(x,y,w,h)});return[{name:base(fs[0])+'_cropped.pdf',blob:await pdfB(d)}]}},
+{n:'Page Numbers',i:'🔢',d:'Add page numbers to every page.',acc:PDF,nw:1,opt:inp('s','Size','11','number'),run:async fs=>{const d=await load(fs[0]),f=await d.embedFont(PDFLib.StandardFonts.Helvetica),n=d.getPageCount();d.getPages().forEach((p,i)=>{const t=`${i+1} / ${n}`,w=f.widthOfTextAtSize(t,+o('s'));p.drawText(t,{x:p.getWidth()/2-w/2,y:20,size:+o('s'),font:f})});return[{name:base(fs[0])+'_numbered.pdf',blob:await pdfB(d)}]}},
+{n:'Extract Text',i:'🔤',d:'Pull all text out as a .txt file.',acc:PDF,nw:1,run:async fs=>[{name:base(fs[0])+'.txt',blob:new Blob([(await lines(fs[0])).map(l=>l?l.join(' '):'\n').join('\n')],{type:'text/plain'})}]},
+{n:'PDF to URL',i:'🔗',d:'Turn a PDF into a copyable data URL.',acc:PDF,nw:1,url:1,opt:'<p class="msg" style="grid-column:1/-1">Creates a Base64 data URL you can embed in HTML. A public https:// link needs a hosting server.</p>',run:async fs=>[{name:fs[0].name,blob:fs[0]}]},
+{n:'Image to URL',i:'🌄',d:'Turn images into copyable data URLs.',acc:IMG,multi:1,nw:1,url:1,opt:'<p class="msg" style="grid-column:1/-1">Creates a Base64 data URL usable in &lt;img src&gt; or CSS. A public https:// link needs a hosting server.</p>',run:async fs=>fs.map(f=>({name:f.name,blob:f}))},
+{n:'Delete Pages',i:'🗑️',d:'Remove unwanted pages quickly.',acc:PDF,nw:1,opt:inp('r','Pages to delete (e.g. 2,5-7)','','text','w'),run:async fs=>{const d=await load(fs[0]);rng(o('r'),d.getPageCount()).sort((a,b)=>b-a).forEach(k=>d.removePage(k));return[{name:base(fs[0])+'_trimmed.pdf',blob:await pdfB(d)}]}}
+];
+
+const G=$('#g'),ov=$('#ov'),md=$('#md');let cur,files=[];
+$('#cnt').textContent=T.length;
+function draw(f=''){G.innerHTML='';T.forEach((t,k)=>{if(!(t.n+t.d).toLowerCase().includes(f))return;const c=document.createElement('div');c.className='card';c.style.setProperty('--i',k);c.innerHTML=`${t.srv?'<span class="tag">Server</span>':t.nw?'<span class="tag n">New</span>':''}<div class="ic">${t.i}</div><h3>${t.n}</h3><p>${t.d}</p>`;c.onmousemove=e=>{const r=c.getBoundingClientRect();c.style.setProperty('--x',e.clientX-r.left+'px');c.style.setProperty('--y',e.clientY-r.top+'px')};c.onclick=()=>open(t);G.append(c)})}
+draw();$('#q').oninput=e=>draw(e.target.value.toLowerCase());
+$('#th').onclick=()=>{const r=document.documentElement;r.dataset.theme=(r.dataset.theme||(matchMedia('(prefers-color-scheme:light)').matches?'light':'dark'))=='dark'?'light':'dark'};
+function open(t){cur=t;files=[];ov.classList.add('on');
+md.innerHTML=`<h2>${t.i} ${t.n}<button class="x" onclick="shut()">✕</button></h2><div class="msg">${t.d}</div>`+(t.srv?`<p class="msg err">${t.msg||SRV}</p>`:`${t.noFile?'':`<div class="dz" id="dz">⬆ Drop file${t.multi?'s':''} here or click to browse<input id="fi" type="file" hidden accept="${t.acc}" ${t.multi?'multiple':''}></div><div class="fl" id="fl"></div>`}<div class="op">${t.opt||''}</div><div class="bar" id="br"></div><button class="go" id="go">${t.n} →</button><div class="msg err" id="er"></div><div class="res" id="rs"></div>`);
+if(t.srv)return;t.init&&t.init();
+if(!t.noFile){const dz=$('#dz'),fi=$('#fi');dz.onclick=()=>fi.click();fi.onchange=()=>add(fi.files);dz.ondragover=e=>{e.preventDefault();dz.classList.add('dr')};dz.ondragleave=()=>dz.classList.remove('dr');dz.ondrop=e=>{e.preventDefault();dz.classList.remove('dr');add(e.dataTransfer.files)}}
+$('#go').onclick=go}
+function add(l){files=cur.multi?[...files,...l]:[l[0]];$('#fl').innerHTML=files.map(f=>`<div><span>📎 ${esc(f.name)}</span><span>${(f.size/1024).toFixed(0)} KB</span></div>`).join('')}
+async function go(){const er=$('#er'),rs=$('#rs'),b=$('#go');er.textContent='';rs.innerHTML='';if(!cur.noFile&&!files.length){er.textContent='Please add a file first.';return}
+b.disabled=1;b.textContent='Working…';$('#br').style.display='block';
+try{const out=await cur.run(files);out.forEach(r=>{const d=document.createElement('div');d.innerHTML=`<span>✅ ${esc(r.name)} · ${(r.blob.size/1024).toFixed(0)} KB</span><button>${cur.url?'Copy URL':'Download'}</button>`;d.querySelector('button').onclick=e=>cur.url?cp(r,e.target):save(r);rs.append(d)})}
+catch(e){er.textContent='Error: '+(e.message||e)}
+b.disabled=0;b.textContent=cur.n+' →';$('#br').style.display='none'}
+const durl=b=>new Promise(r=>{const f=new FileReader();f.onload=()=>r(f.result);f.readAsDataURL(b)});
+async function cp(r,btn){const u=await durl(r.blob);try{await navigator.clipboard.writeText(u)}catch(e){const t=document.createElement('textarea');t.value=u;document.body.append(t);t.select();document.execCommand('copy');t.remove()}btn.textContent='Copied ✓'}
+async function save(r){try{const d=await claude.use('downloads');if(!d)throw 0;await d.save({filename:r.name,data:r.blob})}catch(e){if(e&&e.code==='declined')return;const a=document.createElement('a');a.href=URL.createObjectURL(r.blob);a.download=r.name;a.click()}}
+function shut(){ov.classList.remove('on')}
+ov.onclick=e=>{if(e.target==ov)shut()};addEventListener('keydown',e=>{if(e.key==='Escape')shut()});
+</script></body></html>
